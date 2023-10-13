@@ -29,7 +29,11 @@ void do_next_op(char operator, double operand, double *akkumulator) {
   } else if (operator== '^') {
     *akkumulator = pow(*akkumulator, operand);
   } else if (operator== '#') {
-    *akkumulator = sqrt(*akkumulator);
+    if(*akkumulator < 0) {
+      printf("Kan ikke tage kvadratroden af et negativt tal\n");
+    } else {
+      *akkumulator = sqrt(*akkumulator);
+    }
   } else if (operator== '!') {
     *akkumulator = 1 / *akkumulator;
   } else if (operator== '%') {
