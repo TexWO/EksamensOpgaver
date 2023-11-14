@@ -3,4 +3,4 @@ project(Eksamensopgaver)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Eksamensopgaver main.c)
+add_executable(${PROJECT_NAME} Yatzy/main.c)
