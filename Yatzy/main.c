@@ -11,18 +11,34 @@ void roll_multiple_dice(int arr[], int num_of_dice) {
 }
 
 
-void print_dice(int arr[], int num_of_dice, int num_of_sides) {
+
+
+void print_dice(int arr[], int num_of_dice, int num_of_sides, int score) {
   /* Make a function that prints dice */
   printf("%d-ere", num_of_sides);
   for (int i = 0; i < num_of_dice; i++) {
     printf(" %d", arr[i]);
   }
-  printf("\n");
+  printf(" -- %d\n", score);
 }
 
-int scoreboard() {
+void scoreboard(int *score, int num_of_dice, int num_of_sides, int arr[]) {
   /* Make a function that keeps track of the score */
+  int count = 0;
+
+  for (int i = 0; i < num_of_dice; i++) {
+    if (arr[i] == num_of_sides) {
+      (*score) += num_of_sides;
+      count++;
+      if (count >= 5) {
+        break;
+      }
+    }
+  }
+
 }
+
+
 
 
 
@@ -46,8 +62,10 @@ int main() {
 
   printf("Printing dies:\n");
   while(1) {
+    int score = 0;
     roll_multiple_dice(dice, num_of_dice);
-    print_dice(dice, num_of_dice, num_of_sides);
+    scoreboard(&score, num_of_dice, num_of_sides, dice);
+    print_dice(dice, num_of_dice, num_of_sides, score);
     printf("\n");
 
     num_of_sides++;

@@ -1,0 +1,3 @@
+C:\Users\simon\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E rm -f CMakeFiles\Eksamensopgaver.dir/objects.a
+C:\Users\simon\AppData\Local\Programs\CLion\bin\mingw\bin\ar.exe qc CMakeFiles\Eksamensopgaver.dir/objects.a @CMakeFiles\Eksamensopgaver.dir\objects1.rsp
+C:\Users\simon\AppData\Local\Programs\CLion\bin\mingw\bin\gcc.exe -g -Wl,--whole-archive CMakeFiles\Eksamensopgaver.dir/objects.a -Wl,--no-whole-archive -o Eksamensopgaver.exe -Wl,--out-implib,libEksamensopgaver.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Eksamensopgaver.dir\linkLibs.rsp
