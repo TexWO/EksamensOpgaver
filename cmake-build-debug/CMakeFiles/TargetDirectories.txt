@@ -1,3 +1,0 @@
-C:/Users/simon/C-projects/EksamensOpgaver/cmake-build-debug/CMakeFiles/Eksamensopgaver.dir
-C:/Users/simon/C-projects/EksamensOpgaver/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/simon/C-projects/EksamensOpgaver/cmake-build-debug/CMakeFiles/rebuild_cache.dir
