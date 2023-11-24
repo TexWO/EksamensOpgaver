@@ -267,7 +267,7 @@ int main() {
 
   if (num_of_dice < 5) {
     printf("Terminating program\n");
-    return 1;
+    exit(EXIT_FAILURE);
   }
 
   int dice[num_of_dice];
