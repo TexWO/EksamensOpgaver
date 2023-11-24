@@ -10,6 +10,106 @@ void roll_multiple_dice(int arr[], int num_of_dice) {
   }
 }
 
+int full_house(int arr[], int num_of_dice) {
+  int count[7] = {0};
+  int sum = 0;
+
+  for (int i = 0; i < num_of_dice; i++) {
+    count[arr[i]]++;
+  }
+
+  for (int i = 6; i > 1; i--) {
+    if (count[i] >= 3) {
+      for (int j = 6; j > 1; j--) {
+        if (count[j] >= 2 && j != i) {
+          sum = 3 * i + 2 * j;
+          break;
+        }
+      }
+      break;
+    }
+  }
+  return sum;
+}
+
+int large_straight(int arr[], int num_of_dice) {
+  int count[7] = {0};
+  int sum = 0;
+
+  for (int i = 0; i < num_of_dice; i++) {
+    count[arr[i]]++;
+  }
+
+  for (int i = 6; i >= 2; i--) {
+    if (count[i] >= 1) {
+      sum += i;
+    }
+
+    if (count[i] == 0) {
+      sum = 0;
+      break;
+    }
+  }
+
+  return sum;
+}
+
+int small_straight(int arr[], int num_of_dice) {
+  int count[7] = {0};
+  int sum = 0;
+
+  for (int i = 0; i < num_of_dice; i++) {
+    count[arr[i]]++;
+  }
+
+  for (int i = 5; i >= 1; i--) {
+    if (count[i] >= 1) {
+      sum += i;
+    }
+
+    if (count[i] == 0) {
+      sum = 0;
+      break;
+    }
+  }
+
+  return sum;
+}
+
+int four_kinds(int arr[], int num_of_dice) {
+  int count[7] = {0};
+  int sum = 0;
+
+  for (int i = 0; i < num_of_dice; i++) {
+    count[arr[i]]++;
+  }
+
+  for (int i = 6; i > 1; i--) {
+    if (count[i] >= 4) {
+      sum = 4 * i;
+      break;
+    }
+  }
+  return sum;
+}
+
+int three_kinds(int arr[], int num_of_dice) {
+  int count[7] = {0};
+  int sum = 0;
+
+  for (int i = 0; i < num_of_dice; i++) {
+    count[arr[i]]++;
+  }
+
+  for (int i = 6; i > 1; i--) {
+    if (count[i] >= 3) {
+      sum = 3 * i;
+      break;
+    }
+  }
+  return sum;
+}
+
 int calculate_twopairs(int arr[], int num_of_dice) {
   int pair_count[7] = {0};
   int first_pair_value = 0;
@@ -93,6 +193,51 @@ void print_dice(int arr[], int num_of_dice, int num_of_sides, int score) {
     }
     printf(" -- %d\n", max_pair_sum);
   }
+
+  if (num_of_sides == 9) {
+    int max_pair_sum = three_kinds(arr, num_of_dice);
+    printf("Tre ens:");
+    for (int i = 0; i < num_of_dice; i++) {
+      printf(" %d", arr[i]);
+    }
+    printf(" -- %d\n", max_pair_sum);
+  }
+
+  if (num_of_sides == 10) {
+    int max_pair_sum = four_kinds(arr, num_of_dice);
+    printf("Fire ens:");
+    for (int i = 0; i < num_of_dice; i++) {
+      printf(" %d", arr[i]);
+    }
+    printf(" -- %d\n", max_pair_sum);
+  }
+
+  if (num_of_sides == 11) {
+    int max_pair_sum = small_straight(arr, num_of_dice);
+    printf("Lille:");
+    for (int i = 0; i < num_of_dice; i++) {
+      printf(" %d", arr[i]);
+    }
+    printf(" -- %d\n", max_pair_sum);
+  }
+
+  if (num_of_sides == 12) {
+    int max_pair_sum = large_straight(arr, num_of_dice);
+    printf("Stor:");
+    for (int i = 0; i < num_of_dice; i++) {
+      printf(" %d", arr[i]);
+    }
+    printf(" -- %d\n", max_pair_sum);
+  }
+
+  if (num_of_sides == 13) {
+    int max_pair_sum = full_house(arr, num_of_dice);
+    printf("Fuldt hus:");
+    for (int i = 0; i < num_of_dice; i++) {
+      printf(" %d", arr[i]);
+    }
+    printf(" -- %d\n", max_pair_sum);
+  }
 }
 
 void scoreboard(int *score, int num_of_dice, int num_of_sides, int arr[]) {
@@ -148,7 +293,7 @@ int main() {
       printf("\n");
     }
 
-    if (num_of_sides > 12) {
+    if (num_of_sides > 14) {
       break;
     }
   }
