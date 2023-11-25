@@ -10,6 +10,45 @@ void roll_multiple_dice(int arr[], int num_of_dice) {
   }
 }
 
+int yatzy(int arr[], int num_of_dice) {
+  int count[7] = {0};
+  int sum = 0;
+
+  for (int i = 0; i < num_of_dice; i++) {
+    count[arr[i]]++;
+  }
+
+  for (int i = 6; i > 1; i--) {
+    if (count[i] >= 5) {
+      sum = 50;
+      break;
+    }
+  }
+  return sum;
+}
+
+int chance(int arr[], int num_of_dice) {
+  int count[7] = {0};
+  int sum = 0;
+  int dice_count = 5;
+
+  for (int i = 0; i < num_of_dice; i++) {
+    count[arr[i]]++;
+  }
+
+  for (int i = 6; i > 1; i--) {
+    while (count[i] > 0) {
+      if (dice_count <= 0) {
+        break;
+      }
+      sum += i;
+      count[i]--;
+      dice_count--;
+    }
+  }
+  return sum;
+}
+
 int full_house(int arr[], int num_of_dice) {
   int count[7] = {0};
   int sum = 0;
@@ -166,7 +205,7 @@ int calculate_onepair(int arr[], int num_of_dice) {
   return max_pair_sum;
 }
 
-void print_dice(int arr[], int num_of_dice, int num_of_sides, int score) {
+void print_dice(int arr[], int num_of_dice, int num_of_sides, int score, int *total_score) {
   /* Make a function that prints dice */
   if (num_of_sides <= 6) {
     printf("%d-ere", num_of_sides);
@@ -174,69 +213,97 @@ void print_dice(int arr[], int num_of_dice, int num_of_sides, int score) {
       printf(" %d", arr[i]);
     }
     printf(" -- %d\n", score);
+    *total_score += score;
   }
 
   if (num_of_sides == 7) {
-    int max_pair_sum = calculate_onepair(arr, num_of_dice);
+    score = calculate_onepair(arr, num_of_dice);
     printf("Et par:");
     for (int i = 0; i < num_of_dice; i++) {
       printf(" %d", arr[i]);
     }
-    printf(" -- %d\n", max_pair_sum);
+    printf(" -- %d\n", score);
+    *total_score += score;
   }
 
   if (num_of_sides == 8) {
-    int max_pair_sum = calculate_twopairs(arr, num_of_dice);
+    score = calculate_twopairs(arr, num_of_dice);
     printf("To par:");
     for (int i = 0; i < num_of_dice; i++) {
       printf(" %d", arr[i]);
     }
-    printf(" -- %d\n", max_pair_sum);
+    printf(" -- %d\n", score);
+    *total_score += score;
   }
 
   if (num_of_sides == 9) {
-    int max_pair_sum = three_kinds(arr, num_of_dice);
+    score = three_kinds(arr, num_of_dice);
     printf("Tre ens:");
     for (int i = 0; i < num_of_dice; i++) {
       printf(" %d", arr[i]);
     }
-    printf(" -- %d\n", max_pair_sum);
+    printf(" -- %d\n", score);
+    *total_score += score;
   }
 
   if (num_of_sides == 10) {
-    int max_pair_sum = four_kinds(arr, num_of_dice);
+    score = four_kinds(arr, num_of_dice);
     printf("Fire ens:");
     for (int i = 0; i < num_of_dice; i++) {
       printf(" %d", arr[i]);
     }
-    printf(" -- %d\n", max_pair_sum);
+    printf(" -- %d\n", score);
+    *total_score += score;
   }
 
   if (num_of_sides == 11) {
-    int max_pair_sum = small_straight(arr, num_of_dice);
+    score = small_straight(arr, num_of_dice);
     printf("Lille:");
     for (int i = 0; i < num_of_dice; i++) {
       printf(" %d", arr[i]);
     }
-    printf(" -- %d\n", max_pair_sum);
+    printf(" -- %d\n", score);
+    *total_score += score;
   }
 
   if (num_of_sides == 12) {
-    int max_pair_sum = large_straight(arr, num_of_dice);
+    score = large_straight(arr, num_of_dice);
     printf("Stor:");
     for (int i = 0; i < num_of_dice; i++) {
       printf(" %d", arr[i]);
     }
-    printf(" -- %d\n", max_pair_sum);
+    printf(" -- %d\n", score);
+    *total_score += score;
   }
 
   if (num_of_sides == 13) {
-    int max_pair_sum = full_house(arr, num_of_dice);
+    score = full_house(arr, num_of_dice);
     printf("Fuldt hus:");
     for (int i = 0; i < num_of_dice; i++) {
       printf(" %d", arr[i]);
     }
-    printf(" -- %d\n", max_pair_sum);
+    printf(" -- %d\n", score);
+    *total_score += score;
+  }
+
+  if (num_of_sides == 14) {
+    score = chance(arr, num_of_dice);
+    printf("Chance:");
+    for (int i = 0; i < num_of_dice; i++) {
+      printf(" %d", arr[i]);
+    }
+    printf(" -- %d\n", score);
+    *total_score += score;
+  }
+
+  if (num_of_sides == 15) {
+    score = yatzy(arr, num_of_dice);
+    printf("Yatzy:");
+    for (int i = 0; i < num_of_dice; i++) {
+      printf(" %d", arr[i]);
+    }
+    printf(" -- %d\n", score);
+    *total_score += score;
   }
 }
 
@@ -253,6 +320,7 @@ void scoreboard(int *score, int num_of_dice, int num_of_sides, int arr[]) {
       }
     }
   }
+
 }
 
 int main() {
@@ -272,6 +340,8 @@ int main() {
 
   int dice[num_of_dice];
   int num_of_sides = 1;
+  int total_score = 0;
+  int BONUS = 50;
 
   printf("Printing dies:\n");
   while (1) {
@@ -280,20 +350,28 @@ int main() {
     if (num_of_sides <= 6) {
       roll_multiple_dice(dice, num_of_dice);
       scoreboard(&score, num_of_dice, num_of_sides, dice);
-      print_dice(dice, num_of_dice, num_of_sides, score);
+      print_dice(dice, num_of_dice, num_of_sides, score, &total_score);
       printf("\n");
+
+      if (total_score >= 63 && num_of_sides == 6) {
+        printf("Bonus: %d\n", BONUS);
+        total_score += BONUS;
+      } else if (num_of_sides == 6) {
+        printf("Bonus: 0\n");
+      }
     }
 
     num_of_sides++;
 
-    if (num_of_sides > 6) {
+    if (num_of_sides > 6 && num_of_sides <= 15) {
       printf("%d\n", num_of_sides);
       roll_multiple_dice(dice, num_of_dice);
-      print_dice(dice, num_of_dice, num_of_sides, score);
+      print_dice(dice, num_of_dice, num_of_sides, score, &total_score);
       printf("\n");
     }
 
-    if (num_of_sides > 14) {
+    if (num_of_sides > 15) {
+      printf("Total score: %d\n", total_score);
       break;
     }
   }
