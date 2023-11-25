@@ -266,86 +266,77 @@ void print_dice(int arr[], int num_of_dice, int num_of_sides, int score,
     printf(" -- %d\n", score);
   }
   if (num_of_sides == 7) {
-    score = calculate_onepair(arr, num_of_dice);
+    scores->one_pair = calculate_onepair(arr, num_of_dice);
     printf("Et par:");
     for (int i = 0; i < num_of_dice; i++) {
       printf(" %d", arr[i]);
     }
-    printf(" -- %d\n", score);
-    scores->one_pair = score;
+    printf(" -- %d\n", scores->one_pair);
   }
   if (num_of_sides == 8) {
-    score = calculate_twopairs(arr, num_of_dice);
+    scores->two_pairs = calculate_twopairs(arr, num_of_dice);
     printf("To par:");
     for (int i = 0; i < num_of_dice; i++) {
       printf(" %d", arr[i]);
     }
-    printf(" -- %d\n", score);
-    scores->two_pairs = score;
+    printf(" -- %d\n", scores->two_pairs);
   }
   if (num_of_sides == 9) {
-    score = three_kinds(arr, num_of_dice);
+    scores->three_of_a_kind = three_kinds(arr, num_of_dice);
     printf("Tre ens:");
     for (int i = 0; i < num_of_dice; i++) {
       printf(" %d", arr[i]);
     }
-    printf(" -- %d\n", score);
-    scores->three_of_a_kind = score;
+    printf(" -- %d\n", scores->three_of_a_kind);
   }
   if (num_of_sides == 10) {
-    score = four_kinds(arr, num_of_dice);
+    scores->four_of_a_kind = four_kinds(arr, num_of_dice);
     printf("Fire ens:");
     for (int i = 0; i < num_of_dice; i++) {
       printf(" %d", arr[i]);
     }
-    printf(" -- %d\n", score);
-    scores->four_of_a_kind = score;
+    printf(" -- %d\n", scores->four_of_a_kind);
   }
   if (num_of_sides == 11) {
-    score = small_straight(arr, num_of_dice);
+    scores->small_straight = small_straight(arr, num_of_dice);
     printf("Lille:");
     for (int i = 0; i < num_of_dice; i++) {
       printf(" %d", arr[i]);
     }
-    printf(" -- %d\n", score);
-    scores->small_straight = score;
+    printf(" -- %d\n", scores->small_straight);
   }
   if (num_of_sides == 12) {
-    score = large_straight(arr, num_of_dice);
+    scores->large_straight = large_straight(arr, num_of_dice);
     printf("Stor:");
     for (int i = 0; i < num_of_dice; i++) {
       printf(" %d", arr[i]);
     }
-    printf(" -- %d\n", score);
-    scores->large_straight = score;
+    printf(" -- %d\n", scores->large_straight);
   }
   if (num_of_sides == 13) {
-    score = full_house(arr, num_of_dice);
+    scores->full_house = full_house(arr, num_of_dice);
     printf("Fuldt hus:");
     for (int i = 0; i < num_of_dice; i++) {
       printf(" %d", arr[i]);
     }
-    printf(" -- %d\n", score);
-    scores->full_house = score;
+    printf(" -- %d\n", scores->full_house);
   }
   if (num_of_sides == 14) {
-    score = chance(arr, num_of_dice);
+    scores->chance = chance(arr, num_of_dice);
     printf("Chance:");
     for (int i = 0; i < num_of_dice; i++) {
       printf(" %d", arr[i]);
     }
-    printf(" -- %d\n", score);
-    scores->chance = score;
+    printf(" -- %d\n", scores->chance);
   }
 
   if (num_of_sides == 15) {
-    score = yatzy(arr, num_of_dice);
+    scores->yatzy = yatzy(arr, num_of_dice);
     printf("Yatzy:");
     for (int i = 0; i < num_of_dice; i++) {
       printf(" %d", arr[i]);
     }
-    printf(" -- %d\n", score);
-    scores->yatzy = score;
+    printf(" -- %d\n", scores->yatzy);
   }
 }
 // Funktion der printer scoreboard
