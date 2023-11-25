@@ -20,14 +20,15 @@ typedef struct {
   int yatzy;
 } Scoreboard;
 
+// Funktion der ruller flere terninger og gemmer dem i et array
 void roll_multiple_dice(int arr[], int num_of_dice) {
-  /* Make a function that rolls multiple dice and store them in an int array */
 
   for (int i = 0; i < num_of_dice; i++) {
     arr[i] = rand() % 6 + 1;
   }
 }
 
+// Funktion der tæller score for yatzy
 int yatzy(int arr[], int num_of_dice) {
   int count[7] = {0};
   int sum = 0;
@@ -45,6 +46,7 @@ int yatzy(int arr[], int num_of_dice) {
   return sum;
 }
 
+// Funktion der tæller score for chance
 int chance(int arr[], int num_of_dice) {
   int count[7] = {0};
   int sum = 0;
@@ -67,6 +69,7 @@ int chance(int arr[], int num_of_dice) {
   return sum;
 }
 
+// Funktion der tæller score for fuldt hus
 int full_house(int arr[], int num_of_dice) {
   int count[7] = {0};
   int sum = 0;
@@ -89,6 +92,7 @@ int full_house(int arr[], int num_of_dice) {
   return sum;
 }
 
+// Funktion der tæller score for stor straight
 int large_straight(int arr[], int num_of_dice) {
   int count[7] = {0};
   int sum = 0;
@@ -111,6 +115,7 @@ int large_straight(int arr[], int num_of_dice) {
   return sum;
 }
 
+// Funktion der tæller score for lille straight
 int small_straight(int arr[], int num_of_dice) {
   int count[7] = {0};
   int sum = 0;
@@ -133,6 +138,7 @@ int small_straight(int arr[], int num_of_dice) {
   return sum;
 }
 
+// Funktion der tæller score for fire ens
 int four_kinds(int arr[], int num_of_dice) {
   int count[7] = {0};
   int sum = 0;
@@ -150,6 +156,7 @@ int four_kinds(int arr[], int num_of_dice) {
   return sum;
 }
 
+// Funktion der tæller score for tre ens
 int three_kinds(int arr[], int num_of_dice) {
   int count[7] = {0};
   int sum = 0;
@@ -167,6 +174,7 @@ int three_kinds(int arr[], int num_of_dice) {
   return sum;
 }
 
+// Funktion der tæller score for to par
 int calculate_twopairs(int arr[], int num_of_dice) {
   int pair_count[7] = {0};
   int first_pair_value = 0;
@@ -196,6 +204,7 @@ int calculate_twopairs(int arr[], int num_of_dice) {
   return sum_of_pairs;
 }
 
+// Funktion der tæller score for et par
 int calculate_onepair(int arr[], int num_of_dice) {
   int max_pair_sum = 0;
 
@@ -223,9 +232,9 @@ int calculate_onepair(int arr[], int num_of_dice) {
   return max_pair_sum;
 }
 
+// Funktion der printer terningerne og giver structs scores en score for hver terning
 void print_dice(int arr[], int num_of_dice, int num_of_sides, int score,
                 Scoreboard *scores) {
-  /* Make a function that prints dice */
   int count = 0;
   if (num_of_sides <= 6) {
     for (int i = 0; i < num_of_dice; i++) {
@@ -339,8 +348,8 @@ void print_dice(int arr[], int num_of_dice, int num_of_sides, int score,
     scores->yatzy = score;
   }
 }
+// Funktion der printer scoreboard
 void scoreboard(Scoreboard *scores) {
-  /* Make a function that keeps track of the score */
   printf("Scoreboard:\n");
   printf("1-ere: %d\n", scores->ones);
   printf("2-ere: %d\n", scores->twos);
@@ -360,6 +369,7 @@ void scoreboard(Scoreboard *scores) {
   printf("Yatzy: %d\n", scores->yatzy);
   printf("\n");
 }
+// Funktion der tæller total score
 int totalScore(Scoreboard *scores, int total_score) {
   total_score += scores->ones;
   total_score += scores->twos;
@@ -391,7 +401,7 @@ int main() {
 
   if (num_of_dice < 5) {
     printf("Terminating program\n");
-    exit(EXIT_FAILURE);
+    return 1;
   }
 
   int dice[num_of_dice];
