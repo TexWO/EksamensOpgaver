@@ -386,6 +386,7 @@ int main() {
   srand(seed);
 
   int num_of_dice = 0;
+  char play_again;
 
   printf("Yatzy with how many dice? (a number under 5 terminates)");
   scanf("%d", &num_of_dice);
@@ -429,8 +430,17 @@ int main() {
       printf("\n");
       scoreboard(&scores);
       printf("Total score: %d\n", totalScore(&scores, 0));
+      printf("\n");
       break;
     }
   }
-  return 0;
+  printf("Wanna play again? (y/n)\n");
+  scanf(" %c", &play_again);
+
+  if (play_again == 'y') {
+    main();
+  } else if (play_again != 'y'){
+    printf("Terminating program\n");
+    return 0;
+  }
 }
