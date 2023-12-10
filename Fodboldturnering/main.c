@@ -30,11 +30,6 @@ void TeamStats(Match matches[], int matchCount, Team Teams[], int teamCount) {
 
 
   for (int i = 0; i < matchCount; i++) {
-    // Initialize goalsScored and goalsAgainst for each team to zero
-    for (int j = 0; j < teamCount; j++) {
-      Teams[j].goalsScored = 0;
-      Teams[j].goalsAgainst = 0;
-    }
 
     // Update goalsScored and goalsAgainst based on the match
     int homeTeamIndex = -1;
