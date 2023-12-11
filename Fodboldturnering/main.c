@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-enum { kDate = 6, kTime = 6, kDay = 4, MaxMatches = 91, kName = 4 };
+enum { kDate = 6, kTime = 6, kDay = 4, MaxMatches = 90, kName = 4 };
 
 typedef struct {
   char date[kDate];
@@ -21,6 +22,17 @@ typedef struct {
   int goalsAgainst;
 } Team;
 
+int compareTeams(const void *a, const void *b) {
+  const Team *teamA = (const Team *)a;
+  const Team *teamB = (const Team *)b;
+
+  if (teamA->points != teamB->points) {
+    return teamB->points - teamA->points;
+  }
+
+  return teamB->goalsScored - teamA->goalsScored;
+}
+
 void TeamStats(Match matches[], int matchCount, Team Teams[], int teamCount) {
   for (int i = 0; i < teamCount; i++) {
     Teams[i].points = 0;
@@ -28,10 +40,7 @@ void TeamStats(Match matches[], int matchCount, Team Teams[], int teamCount) {
     Teams[i].goalsAgainst = 0;
   }
 
-
   for (int i = 0; i < matchCount; i++) {
-
-    // Update goalsScored and goalsAgainst based on the match
     int homeTeamIndex = -1;
     int awayTeamIndex = -1;
 
@@ -51,7 +60,7 @@ void TeamStats(Match matches[], int matchCount, Team Teams[], int teamCount) {
       Teams[awayTeamIndex].goalsScored += matches[i].scoreAway;
       Teams[awayTeamIndex].goalsAgainst += matches[i].scoreHome;
 
-      // Determine match outcome and update points
+      // Tjekker hvem der har vundet og udeler point
       if (matches[i].scoreHome > matches[i].scoreAway) {
         Teams[homeTeamIndex].points += 3;
       } else if (matches[i].scoreHome < matches[i].scoreAway) {
@@ -88,11 +97,11 @@ int main() {
   Team Teams[12];
   int teamCount = 12;
 
-  strcpy(Teams[0].name, "FCK");
-  strcpy(Teams[1].name, "BIF");
-  strcpy(Teams[2].name, "FCM");
+  strcpy(Teams[0].name, "FCM");
+  strcpy(Teams[1].name, "FCN");
+  strcpy(Teams[2].name, "FCK");
   strcpy(Teams[3].name, "SIF");
-  strcpy(Teams[4].name, "FCN");
+  strcpy(Teams[4].name, "BIF");
   strcpy(Teams[5].name, "AGF");
   strcpy(Teams[6].name, "LBK");
   strcpy(Teams[7].name, "VFF");
@@ -106,8 +115,10 @@ int main() {
 
   TeamStats(matches, matchCount, Teams, teamCount);
 
+  qsort(Teams, teamCount, sizeof(Team), compareTeams);
+
   for (int i = 0; i < teamCount; i++) {
-    printf("%s %d %d %d\n", Teams[i].name, Teams[i].points,
+    printf("%s Points: %d Goals: %d - %d\n", Teams[i].name, Teams[i].points,
            Teams[i].goalsScored, Teams[i].goalsAgainst);
   }
   return 0;
