@@ -22,6 +22,7 @@ typedef struct {
   int goalsAgainst;
 } Team;
 
+// Funktion der bliver brugt i qsort til at sortere Teams efter points og efter goalsScored
 int compareTeams(const void *a, const void *b) {
   const Team *teamA = (const Team *)a;
   const Team *teamB = (const Team *)b;
@@ -115,6 +116,7 @@ int main() {
 
   TeamStats(matches, matchCount, Teams, teamCount);
 
+  // Sorter Teams efter points og goalsScored
   qsort(Teams, teamCount, sizeof(Team), compareTeams);
 
   for (int i = 0; i < teamCount; i++) {
